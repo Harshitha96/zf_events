@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>    
+    <div class ="flex-container">
+        <img src="/static/images/ZF_icon" class="zf_icon">
+        <h1>Events at ZF</h1>
+        <form action="/new_event" method="GET">
+            <input type = "submit" value="Add event" id="create_new_event_button">
+        </form>
+    </div>
+    <div>
+        <div class="grid-container">            
+        {% for id, event in allFlashed_messages.items() %}            
+            <a class="card" href="/event/{{id}}">
+                <div class="col-25" id="dateTimeDisplay">
+                    <p>{{event.dateTimeList[0]}} {{event.dateTimeList[1]}}</p>
+                    <p>{{event.dateTimeList[2]}}</p>
+                </div>
+                <div class="col-75">                    
+                    <p>{{event.Name}}</p>
+                    <p>{{event.Location}}</p>
+                    <p>{{event.Event_Type}}</p>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+        </div>
+    </div>
+</body>
+</html>

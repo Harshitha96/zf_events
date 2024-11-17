@@ -1,0 +1,211 @@
+
+body {
+    text-align: center;
+    height: 100%;
+    font-family:Taffy Regular;
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 20px;
+    padding: 20px;
+    margin: 0 auto;
+    grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.card {
+    padding: 30px 10px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background-color: #e0f7fa;
+}
+.card:hover{
+    background-color: #2596be;
+}
+a:-webkit-any-link
+{
+    text-decoration: none;
+    color: black
+}
+a:hover
+{
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .grid-container {
+        grid-template-columns:
+            repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .card {
+        padding: 30px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .grid-container {
+        grid-template-columns:
+            repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .card {
+        padding: 20px;
+    }
+    
+    .flex-container {
+        flex-direction: column;
+        padding: 10px 0px;
+    }
+    #create_new_event_button {
+        width : 100px;
+    }
+}
+
+#create_new_event_button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 200px;
+    outline:none;
+    border: none;
+    border-radius: 4px;
+    margin-right:20px;
+    float: right;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.14);
+}
+
+#create_new_event_button:hover{
+    background-color: #2596be;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.378);
+}
+
+.flex-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card>.flex-container{
+    box-shadow:none;
+}
+@media (max-width: 600px) {
+    .flex-container {
+        flex-direction: column;
+        padding: 10px 0px;
+    }
+    #create_new_event_button {
+        width : 100px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+  }
+  
+  input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  input[type=datetime-local], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+  
+  input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px 0px 0px 0px;
+    height:86vh;
+  }
+  .form_style
+  {
+    padding-left: 30px;
+    background-color: #f2f2f2;
+    padding-bottom: 30px;
+  }
+  
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+  
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+  
+  .col-20 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+  }
+  #dateTimeDisplay
+  {
+    font-size: 20px;
+    font-weight:bold;
+  }
+  
+  .col-60 {
+    float: left;
+    width: 60%;
+    margin-top: 6px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .row{
+    text-align: left;
+  }
+  .zf_icon
+  {
+    margin: 2px 0px;
+    width:100px;
+  }
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }

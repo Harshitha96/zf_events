@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>     
+    <div class ="flex-container">
+        <a href="/"><img src="/static/images/ZF_icon" style="margin: 2px 0px;width:100px;"></a>
+        <h1>Events at ZF</h1>
+        <form action="/new_event" method="GET">
+            <input type = "submit" value="create new" id="create_new_event_button">
+        </form>
+    </div>
+
+    
+    <div class="container">
+     
+    <h2>{{ event_desc }} - {{event_id}}</h2>
+      <form action="/update_event/{{event_id}}" id= "updated_event_details" class="form_style" method="post">
+        <div class="row">
+          <div class="col-20">
+            <label for="updated_event_name">Name of the event *</label>
+          </div>
+          <div class="col-20">
+            <div>{{event_details.Name}}</div>
+          </div>
+          <div class="col-60">
+            <input type="text" id="event_name" name=event_name placeholder="Name of the event">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="event_dateTime">Date and Time of the event</label>
+          </div>
+          <div class="col-20">
+            <div>
+            {%if event_details.DateTime%}
+                {{event_details.DateTime}}
+            {%else%}
+                Details not provided
+            {%endif%}
+            </div>
+          </div>
+          <div class="col-60">
+            <input type="datetime-local" id="event_dateTime" name="event_dateTime" placeholder="Date and Time of the event">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="event_location">Location of the event</label>
+          </div>
+          <div class="col-20">
+            <div>
+                {%if event_details.Location%}
+                    {{event_details.Location}}
+                {%else%}
+                    Details not provided
+                {%endif%}
+            </div>
+          </div>
+          <div class="col-60">
+            <input type="text" id="event_location" name="event_location" placeholder="Location of the event">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="IsRegistration">Is registration needed</label>
+          </div>
+          <div class="col-20">
+            {%if event_details.IsRegistration == 'True'%}
+                Yes
+            {%else%}
+                Registration is not needed         
+            {%endif%}
+          </div>
+          <div class="col-60">
+            <select id="IsRegistration" name="IsRegistration">
+            <option value="True">Yes</option>
+            <option value="False">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="event_link">Registration link</label>
+          </div>
+          <div class="col-20">
+            {%if event_details.IsRegistration == 'True'%}
+                {{event_details.RegistrationLink}}
+            {%else%}
+                Registration link is not provided         
+            {%endif%}
+          </div>
+          <div class="col-60">
+            <input type="text" id="event_link" name="event_link" placeholder="Registration link if necessary">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="event_type">Type of the event</label>
+          </div>
+          <div class="col-20">
+            <div>
+                {%if event_details.Event_Type%}
+                    {{event_details.Event_Type}}
+                {%else%}
+                    Details not provided
+                {%endif%}
+            </div>
+          </div>
+          <div class="col-60">
+            <select id="event_type" name="event_type">
+              <option value="Sports">Sports</option>
+              <option value="food">Food</option>
+              <option value="wellness">employee_wellness</option>
+              <option value="general">general</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="event_highlights">Highlights</label>
+          </div>
+          <div class="col-20">
+            <div>{{event_details.Highlights}}</div>
+            <div>
+                {%if event_details.Highlights%}
+                    {{event_details.Highlights}}
+                {%else%}
+                    Details not provided
+                {%endif%}
+            </div>
+          </div>
+          <div class="col-60">
+            <textarea id="event_highlights" name="event_highlights" placeholder="Write something.." style="height:200px"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <input type="submit" form="updated_event_details" name="updated_event_details" value="submit">
+        </div>
+      </form>
+    </div>
+     
+</body>
+</html>

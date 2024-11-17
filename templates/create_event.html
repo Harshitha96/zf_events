@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>     
+    <div class ="flex-container">
+        <a href="/"><img src="/static/images/ZF_icon" style="margin: 2px 0px;width:100px;"></a>
+        <h1>Events at ZF</h1>
+        <form action="/" method="GET">
+            <input type = "submit" value="Go Back" id="create_new_event_button">
+        </form>
+    </div>
+
+    
+    <div class="container">
+     
+      <form action="/new_event" id= "new_event_details" method="post" class="form_style">
+        <div class="row">
+          <div class="col-25">
+            <label for="event_name">Name of the event *</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="event_name" name="event_name" placeholder="Name of the event">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_date">Date and Time of the event</label>
+          </div>
+          <div class="col-75">
+            <input type="datetime-local" id="event_dateTime" name="event_dateTime" placeholder="Date and Time of the event">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_location">Location of the event</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="event_location" name="event_location" placeholder="Location of the event">
+          </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-25">
+              <label for="IsRegistration">Is registration needed</label>
+            </div>
+            <div class="col-75">
+              <select id="IsRegistration" name="IsRegistration">
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+              </select>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_link">Registration link</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="event_link" name="event_link" placeholder="Registration link if necessary">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_type">Type of the event</label>
+          </div>
+          <div class="col-75">
+            <select id="event_type" name="event_type">
+              <option value="Sports">Sports</option>
+              <option value="food">Food</option>
+              <option value="wellness">employee_wellness</option>
+              <option value="general">general</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_highlights">Highlights</label>
+          </div>
+          <div class="col-75">
+            <textarea id="event_highlights" name="event_highlights" placeholder="Write something.." style="height:200px"></textarea>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">            
+          <div class="col-25">
+            <input type="submit" form="new_event_details" name="new_event_details" value="Submit details">
+          </div>
+        </div>
+       </div>
+      </form>
+    </div>
+     
+</body>
+</html>
