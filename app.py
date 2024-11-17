@@ -226,6 +226,3 @@ def create():
 
         else:
                 return redirect(url_for("event",id=dbSize))
-
-if __name__ == "__main__":
-    app.run(debug=True)
