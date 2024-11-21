@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f9fc;
+  }
+  
+  .calendar {
+    width: 80%;
+    max-width: 600px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0077cc;
+    color: white;
+    padding: 1rem;
+  }
+  
+  .calendar-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .nav-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background-color: #e0e0e0;
+  }
+  
+  .day, .day-name {
+    background: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+  
+  .day-name {
+    font-weight: bold;
+    background: #f0f0f0;
+  }
+  
+  .day {
+    position: relative;
+  }
+  
+  .event {
+    background: #ffe4b3;
+    font-weight: bold;
+  }
+  
+  .event-indicator {
+    background: #ff9900;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin:2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  .event-count {
+    background : red;
+    color:white;
+    font-size: 12px;
+    padding:3px;
+    border-radius: 20px;
+    margin:1px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  .fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.goLeft {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count:infinite;
+  }
+  
+  @keyframes example {
+    0%   {background-color:red; left:50px; top:0px;}
+    100% {background-color:red; left:0px; top:0px; opacity:0;}
+  }
+  

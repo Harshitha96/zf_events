@@ -1,0 +1,62 @@
+[
+    {
+        "user_id": "z0249169",
+        "password": "gjr512002",
+        "is_admin": true
+    },
+    {
+        "user_id": "z0137292",
+        "password": "user1pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137293",
+        "password": "user2pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137294",
+        "password": "user3pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137295",
+        "password": "user4pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137296",
+        "password": "user5pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137297",
+        "password": "user6pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137298",
+        "password": "user7pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137299",
+        "password": "user8pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0137300",
+        "password": "user9pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "z0149568",
+        "password": "user9pass",
+        "is_admin": false
+    },
+    {
+        "user_id": "Z0249167",
+        "password": "dlkfngdfsg",
+        "is_admin": "False"
+    }
+]

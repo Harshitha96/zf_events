@@ -9,14 +9,55 @@
 </head>
 <body>    
     <div class ="flex-container">
-        <img src="/static/images/ZF_icon" class="zf_icon">
+        <a href="/ZF_events"><img src="/static/images/ZF_icon" style="margin: 2px 0px;"></a>
         <h1>Events at ZF</h1>
-        <form action="/new_event" method="GET">
-            <input type = "submit" value="Add event" id="create_new_event_button">
-        </form>
+        
+        <div class="dropdown">
+            <img src="/static/images/user_icon.png" alt="User Icon" class="user-icon">
+            <div class="dropdown-content">
+                <div>Hi, {{user_name}}</div>
+                <form action="/new_event" method="GET">
+                    <button type="submit" class="dropdown-button" id="create_new_event_button">Create New</button>
+                </form>
+                <form action="/logout" method="POST">
+                    <button type="submit" class="dropdown-button" id="create_new_event_button">Log Out</button>
+                </form>
+                {%if isAdmin == "True"%}
+                <form action="/addUser" method="GET">
+                    <button type="submit" class="dropdown-button" id="create_new_event_button">Add a user</button>
+                </form>
+                {%endif%}
+            </div>
+        </div>
     </div>
     <div>
-        <div class="grid-container">            
+        
+        <div class="grid-container">
+            <div class="filter-container">
+                <form action="/filter" id= "filter_event_details" method="post">
+                <div class="filter-row">
+                    <select id="category" name="category">
+                        {% for category in available_categories %}
+                        <option value="{{category}}" {% if category == selected_category %}selected{% endif %}>
+                            {{category}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <select id="event_status" name="event_status">
+                        {% for status in available_status %}
+                        <option value="{{status}}" {% if status == selected_status %}selected{% endif %}>
+                            {{status}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="filter-row">
+                    <input type="submit" form="filter_event_details" name="filter_event_details" value="Filter events">
+                </div>
+            </form>
+            </div>
+
+        {%if allFlashed_messages.items() | list | length > 0%}
         {% for id, event in allFlashed_messages.items() %}            
             <a class="card" href="/event/{{id}}">
                 <div class="col-25" id="dateTimeDisplay">
@@ -24,12 +65,15 @@
                     <p>{{event.dateTimeList[2]}}</p>
                 </div>
                 <div class="col-75">                    
-                    <p>{{event.Name}}</p>
-                    <p>{{event.Location}}</p>
-                    <p>{{event.Event_Type}}</p>
+                    <p>{{event.Event_Name[0:25]}}</p>
+                    <p>{{event.Category}}</p>
+                    <p>{{event.Event_Status}}</p>
                 </div>
             </a>
         {% endfor %}
+        {%else%}
+        <div>No items to display</div>
+        {%endif%}
         </div>
         </div>
     </div>

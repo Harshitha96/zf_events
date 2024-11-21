@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,28 +10,37 @@
 </head>
 <body>     
     <div class ="flex-container">
-        <a href="/"><img src="/static/images/ZF_icon" style="margin: 2px 0px;width:100px;"></a>
+        <a href="/ZF_events"><img src="/static/images/ZF_icon" style="margin: 2px 0px;"></a>
         <h1>Events at ZF</h1>
-        <form action="/" method="GET">
-            <input type = "submit" value="Go Back" id="create_new_event_button">
-        </form>
+        
+        <div class="dropdown">
+          <img src="/static/images/user_icon.png" alt="User Icon" class="user-icon">
+          <div class="dropdown-content">
+              <form action="/ZF_events" method="GET">
+                  <button type="submit" class="dropdown-button" id="create_new_event_button">All Events</button>
+              </form>
+              <form action="/logout" method="POST">
+                  <button type="submit" class="dropdown-button" id="create_new_event_button">Log Out</button>
+              </form>
+          </div>
+      </div>
     </div>
 
     
     <div class="container">
      
-      <form action="/new_event" id= "new_event_details" method="post" class="form_style">
+      <form action="/new_event" id= "new_event_details" method="post">
         <div class="row">
           <div class="col-25">
             <label for="event_name">Name of the event *</label>
           </div>
           <div class="col-75">
-            <input type="text" id="event_name" name="event_name" placeholder="Name of the event">
+            <input type="text" id="event_name" name="event_name" placeholder="Name of the event" required>
           </div>
         </div>
         <div class="row">
           <div class="col-25">
-            <label for="event_date">Date and Time of the event</label>
+            <label for="event_dateTime">Date and Time of the event</label>
           </div>
           <div class="col-75">
             <input type="datetime-local" id="event_dateTime" name="event_dateTime" placeholder="Date and Time of the event">
@@ -51,30 +61,69 @@
             </div>
             <div class="col-75">
               <select id="IsRegistration" name="IsRegistration">
-                <option value="True">Yes</option>
                 <option value="False">No</option>
+                <option value="True">Yes</option>
               </select>
             </div>
+        </div>        
+        <div class="row">
+          <div class="col-25">
+            <label for="event_isGroup">Is this a group event</label>
+          </div>
+          <div class="col-75">
+            <select id="event_isGroup" name="event_isGroup">
+              <option value="False">No</option>
+              <option value="True">Yes</option>
+              </select>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-25">
+            <label for="event_groupSize">Team size min & max</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="event_groupSize" name="event_groupSize" placeholder="min, max team size seperated by comma">            
+          </div>
         </div>
         <div class="row">
           <div class="col-25">
-            <label for="event_link">Registration link</label>
+            <label for="category">Category of the event</label>
           </div>
           <div class="col-75">
-            <input type="text" id="event_link" name="event_link" placeholder="Registration link if necessary">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-25">
-            <label for="event_type">Type of the event</label>
-          </div>
-          <div class="col-75">
-            <select id="event_type" name="event_type">
-              <option value="Sports">Sports</option>
-              <option value="food">Food</option>
-              <option value="wellness">employee_wellness</option>
-              <option value="general">general</option>
+            <select id="category" name="category">
+              {%for available_sport in available_categories%}
+              <option value={{available_sport}}>{{available_sport}}</option>
+              {%endfor%}
             </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_status">Event status </label>
+          </div>
+          <div class="col-75">
+            <select id="event_status" name="event_status">              
+              {%for status in available_status%}
+              <option value={{status}}>{{status}}</option>
+              {%endfor%}
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_totalSlots">Total slots for registration</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="event_totalSlots" name="event_totalSlots" placeholder="total slots available for the event"> 
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_registeredSlots">Registered slots</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="event_registeredSlots" name="event_registeredSlots" placeholder="already registered slots for the event"> 
           </div>
         </div>
         <div class="row">

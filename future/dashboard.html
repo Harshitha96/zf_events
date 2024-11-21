@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/script.js"></script>
+</head>
+<body>
+    <div id="dashboard_main">
+        <div class="calendar">
+            <div class="calendar-header">
+              <button class="nav-btn" id="prev-month">◀</button>
+              <h2>November 2024</h2>
+              <button class="nav-btn" id="next-month">▶</button>
+            </div>
+            <div class="calendar-grid">
+              <!-- Days of the week -->
+              <div class="day-name">Mon</div>
+              <div class="day-name">Tue</div>
+              <div class="day-name">Wed</div>
+              <div class="day-name">Thu</div>
+              <div class="day-name">Fri</div>
+              <div class="day-name">Sat</div>
+              <div class="day-name">Sun</div>
+        
+              <!-- Days with events -->
+               {%for key, item in calendar_items.items() %}
+
+               {%if item.date != "" and item.event_count > 0%}
+                <div class="day event">{{item.date}}                    
+                    <div class="event-indicator">{{item.event_name[:5]}}</div>
+                    <div class="event-count">{{item.event_count}}</div>
+                </div>
+                {%elif item.date != "" %}
+                <div class="day">{{item.date}}</div>
+                {%else%}
+                <div class="day"></div>
+                {%endif%}
+               {% endfor %}
+            </div>
+          </div>
+
+
+    <div class="wrapper">
+        <div class="carousel">
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+                🎖️
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">spouting whale</p>
+              <p>Unicode: U+1F433</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+              🐋
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">whale</p>
+              <p>Unicode: U+1F40B</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+              🐬
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">dolphin</p>
+              <p>Unicode: U+1F42C</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+                🏃
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">fish</p>
+              <p>Unicode: U+1F41F</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+              🐠
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">tropical fish</p>
+              <p>Unicode: U+1F420</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+              🐡
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">blowfish</p>
+              <p>Unicode: U+1F421</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+              🦈
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">shark</p>
+              <p>Unicode: U+1F988</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+              🐙
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">octopus</p>
+              <p>Unicode: U+1F419</p>
+            </div>
+          </div>
+          <div class="carousel__item">
+            <div class="carousel__item-head">
+              🐚
+            </div>
+            <div class="carousel__item-body">
+              <p class="title">spiral shell</p>
+              <p>Unicode: U+1F41A</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+      
+</body>
+</html>

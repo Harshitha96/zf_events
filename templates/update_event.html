@@ -10,24 +10,38 @@
 </head>
 <body>     
     <div class ="flex-container">
-        <a href="/"><img src="/static/images/ZF_icon" style="margin: 2px 0px;width:100px;"></a>
+        <a href="/ZF_events"><img src="/static/images/ZF_icon" style="margin: 2px 0px;"></a>
         <h1>Events at ZF</h1>
-        <form action="/new_event" method="GET">
-            <input type = "submit" value="create new" id="create_new_event_button">
-        </form>
+        
+        <div class="dropdown">
+          <img src="/static/images/user_icon.png" alt="User Icon" class="user-icon">
+          <div class="dropdown-content">
+              <form action="/new_event" method="GET">
+                  <button type="submit" class="dropdown-button" id="create_new_event_button">Create New</button>
+              </form>
+              <form action="/logout" method="POST">
+                  <button type="submit" class="dropdown-button" id="create_new_event_button">Log Out</button>
+              </form>
+          </div>
+      </div>
     </div>
 
     
     <div class="container">
      
-    <h2>{{ event_desc }} - {{event_id}}</h2>
-      <form action="/update_event/{{event_id}}" id= "updated_event_details" class="form_style" method="post">
+    <h2>{{ event_desc }} - 
+      {%if event_details.Event_Name%}
+        <span>{{event_details.Event_Name}}</span>
+      {%endif%}
+      
+    </h2>
+      <form action="/update_event/{{event_id}}" id= "updated_event_details" method="post">
         <div class="row">
           <div class="col-20">
-            <label for="updated_event_name">Name of the event *</label>
+            <label for="updated_event_name">Name of the event</label>
           </div>
           <div class="col-20">
-            <div>{{event_details.Name}}</div>
+            <div>{{event_details.Event_Name}}</div>
           </div>
           <div class="col-60">
             <input type="text" id="event_name" name=event_name placeholder="Name of the event">
@@ -80,46 +94,129 @@
           </div>
           <div class="col-60">
             <select id="IsRegistration" name="IsRegistration">
-            <option value="True">Yes</option>
             <option value="False">No</option>
+            <option value="True">Yes</option>
             </select>
           </div>
         </div>
         <div class="row">
           <div class="col-20">
-            <label for="event_link">Registration link</label>
+            <label for="event_isGroup">Is this a group event</label>
           </div>
           <div class="col-20">
-            {%if event_details.IsRegistration == 'True'%}
-                {{event_details.RegistrationLink}}
+            {%if event_details.isGroupRegistration =='True' %}
+                Yes
             {%else%}
-                Registration link is not provided         
+              Event for indidual employees          
             {%endif%}
           </div>
           <div class="col-60">
-            <input type="text" id="event_link" name="event_link" placeholder="Registration link if necessary">
+            <select id="event_isGroup" name="event_isGroup">
+              <option value="False">No</option>
+              <option value="True">Yes</option>
+              </select>
           </div>
         </div>
         <div class="row">
           <div class="col-20">
-            <label for="event_type">Type of the event</label>
+            <label for="event_groupSize">Team size min & max</label>
+          </div>
+          <div class="col-20">
+            {%if event_details.isGroupRegistration %}
+                {{event_details.min_team}}, {{event_details.max_team}}
+            {%else%}
+            Event for indidual employees          
+            {%endif%}
+          </div>
+          <div class="col-60">
+            <input type="text" id="event_groupSize" name="event_groupSize" placeholder="min, max team size seperated by comma">            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="category">category of the event</label>
           </div>
           <div class="col-20">
             <div>
-                {%if event_details.Event_Type%}
-                    {{event_details.Event_Type}}
+                {%if event_details.Category%}
+                    {{event_details.Category}}
                 {%else%}
                     Details not provided
                 {%endif%}
             </div>
           </div>
           <div class="col-60">
-            <select id="event_type" name="event_type">
-              <option value="Sports">Sports</option>
-              <option value="food">Food</option>
-              <option value="wellness">employee_wellness</option>
-              <option value="general">general</option>
+            <select id="category" name="category">
+              {%for available_sport in available_categories%}
+              {% if available_sport != "All" %}
+                <option value="{{available_sport}}" {%if available_sport == event_details.Category%} selected{% endif %}>
+                  {{available_sport}}
+                </option>
+              {% endif %}
+              
+              {%endfor%}
             </select>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-20">
+            <label for="event_status">Status of the event</label>
+          </div>
+          <div class="col-20">
+            <div>
+                {%if event_details.Event_Status%}
+                    {{event_details.Event_Status}}
+                {%else%}
+                    Details not provided
+                {%endif%}
+            </div>
+          </div>
+          <div class="col-60">
+            <select id="event_status" name="event_status">
+              {%for status in available_status%}
+              {% if status != "All" %}
+                <option value="{{status}}"{% if status == event_details.Event_Status %}selected{% endif %}>
+                  {{status}}
+                </option>
+              {% endif %}
+              {%endfor%}
+            </select>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-20">
+            <label for="event_totalSlots">Total slots available</label>
+          </div>
+          <div class="col-20">
+            <div>
+                {%if event_details.Total_slots_avl%}
+                    {{event_details.Total_slots_avl}}
+                {%else%}
+                    0
+                {%endif%}
+            </div>
+          </div>
+          <div class="col-60">
+            <input type="number" id="event_totalSlots" name="event_totalSlots" placeholder="total slots available for the event"> 
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-20">
+            <label for="event_registeredSlots">Registered slots</label>
+          </div>
+          <div class="col-20">
+            <div>
+                {%if event_details.Registered_slots%}
+                    {{event_details.Registered_slots}}
+                {%else%}
+                    0
+                {%endif%}
+            </div>
+          </div>
+          <div class="col-60">
+            <input type="number" id="event_registeredSlots" name="event_registeredSlots" placeholder="registered slots for the event"> 
           </div>
         </div>
         <div class="row">
@@ -127,7 +224,6 @@
             <label for="event_highlights">Highlights</label>
           </div>
           <div class="col-20">
-            <div>{{event_details.Highlights}}</div>
             <div>
                 {%if event_details.Highlights%}
                     {{event_details.Highlights}}
@@ -141,7 +237,7 @@
           </div>
         </div>
         <div class="row">
-          <input type="submit" form="updated_event_details" name="updated_event_details" value="submit">
+          <input type="submit" form="updated_event_details" name="updated_event_details" value="Update the event">
         </div>
       </form>
     </div>

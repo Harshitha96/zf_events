@@ -1,15 +1,15 @@
 
 body {
     text-align: center;
-    height: 100%;
-    font-family:Taffy Regular;
+    height: 100vh;
+    margin: 0;
 }
-
 .grid-container {
     display: grid;
     grid-gap: 20px;
     padding: 20px;
     margin: 0 auto;
+    align-items: center;
     grid-template-columns:
                 repeat(auto-fit, minmax(300px, 1fr));
 }
@@ -43,6 +43,81 @@ a:hover
     .card {
         padding: 30px;
     }
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.user-icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.filter-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Arrange dropdowns vertically */
+  gap: 15px; /* Add spacing between rows */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px; /* Adjust width as needed */
+}
+
+.filter-row select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+}
+
+.filter-row
+{
+  margin: 5px 0px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1;
+  min-width:200px;
+  max-width:300px;
+  width:auto;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+.dropdown-button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px 0;
+  width: 100%;
+  text-align: left;
+  transition: background 0.3s;
+}
+
+.dropdown-button:hover {
+  background: #0056b3;
 }
 
 @media screen and (max-width: 576px) {
@@ -83,13 +158,16 @@ a:hover
     cursor: pointer;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.378);
 }
-
+.container{
+  padding: 0px 20px;
+}
 .flex-container {
 display: flex;
 flex-wrap: wrap;
 justify-content: space-between;
 align-items: center;
 box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+padding:0px 15px;
 }
 
 .card>.flex-container{
@@ -109,15 +187,7 @@ box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
   }
   
-  input[type=text], select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-  }
-  input[type=datetime-local], select, textarea {
+  input[type=text], input[type=email], input[type=number], input[type=datetime-local], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -145,17 +215,13 @@ box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     background-color: #45a049;
   }
   
-  .container {
+
+  #updated_event_details, #new_event_details, #register_event_form, #login_form
+  {
     border-radius: 5px;
     background-color: #f2f2f2;
-    padding: 20px 0px 0px 0px;
-    height:86vh;
-  }
-  .form_style
-  {
-    padding-left: 30px;
-    background-color: #f2f2f2;
-    padding-bottom: 30px;
+    padding: 20px;
+    height:100%;
   }
   
   .col-25 {
@@ -187,6 +253,19 @@ box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     margin-top: 6px;
   }
   
+  .register_form_row
+  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Adjust the space between fields */
+    margin-bottom: 15px;
+  }
+
+  .col-50 {
+    flex: 1; /* Ensures both fields take equal width */
+    margin-right: 10px; /* Adds spacing between columns */
+  }
   /* Clear floats after the columns */
   .row:after {
     content: "";
@@ -196,16 +275,374 @@ box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   
   .row{
     text-align: left;
-  }
-  .zf_icon
-  {
-    margin: 2px 0px;
-    width:100px;
+    display: flex;
+    align-items: center;
   }
   /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
     .col-25, .col-75, input[type=submit] {
       width: 100%;
-      margin-top: 10px;
+      margin-top: 0;
     }
+    .register_form_row {
+      flex-direction: column;
+      gap: 10px; /* Smaller gap for stacked layout */
+  }
+  }
+
+  
+  .calendar {
+    max-width: 60%;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    /*overflow: hidden;*/
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0077cc;
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  .calendar-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .nav-btn {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .nav-btn:hover {
+    background-color: #ddd;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .day, .day-name {
+    background: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+    color: black;
+  }
+  
+  .day-name {
+    font-weight: bold;
+    background: #f0f0f0;
+  }
+  
+  .day {
+    position: relative;
+  }
+  
+  .event {
+    font-weight: bold;
+  }
+  
+  .event-indicator {
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin:2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  .event-count {
+    background : #96d4e3;
+    color:white;
+    font-size: 12px;
+    padding:3px;
+    border-radius: 20px;
+    margin:1px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* Ensure proper spacing for very small screens */
+  @media screen and (max-width: 600px) {
+    .calendar {
+      max-width: 100%;  /* Expand to full width on smaller screens */
+      padding: 5px;
+    }
+    
+  #dashboard_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+    .calendar-header {
+      flex-direction: column; /* Stack header elements */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .nav-btn {
+      padding: 4px 8px;
+    }
+  
+    /* Make calendar grid more compact */
+    .calendar-grid {
+      grid-template-columns: repeat(7, 1fr);  /* Keep it 7 columns */
+      gap: 3px;
+    }
+  
+    /* Make each day a bit more compact for smaller screens */
+    .day {
+      font-size: 14px;
+      min-height: 40px;  /* Adjust for smaller viewports */
+    }
+  
+    .day-name {
+      font-size: 12px;  /* Smaller font size for the day names */
+    }
+  
+    /* Reduce the size of event indicators on small screens */
+    .event-indicator {
+      font-size: 8px;
+      padding: 2px 4px;
+    }
+  }
+  
+  /* For medium screens between 600px to 1024px */
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    .calendar {
+      max-width: 80%;  /* Limit the size on larger tablets */
+    }
+  
+    .calendar-grid {
+      grid-template-columns: repeat(7, 1fr);  /* 7 columns always */
+      gap: 5px;
+    }
+  
+    .day {
+      min-height: 60px;  /* Larger cells for medium screens */
+    }
+  
+    .day-name {
+      font-size: 14px;  /* Slightly bigger font size for medium screens */
+    }
+  }
+  /* Base Styles */
+.wrapper {
+  height: 50%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: black;
+}
+
+.carousel__item {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  padding: 0 12px;
+  opacity: 0;
+  filter: drop-shadow(0 2px 2px #555);
+  will-change: transform, opacity;
+  animation: carousel-animate 27s ease-in-out infinite;
+}
+
+.carousel__item:nth-child(1) {
+  animation-delay: 3s;
+}
+
+.carousel__item:nth-child(2) {
+  animation-delay: 6s;
+}
+
+.carousel__item:nth-child(3) {
+  animation-delay: 9s;
+}
+
+.carousel__item:nth-child(4) {
+  animation-delay: 12s;
+}
+
+.carousel__item:nth-child(5) {
+  animation-delay: 15s;
+}
+
+.carousel__item:nth-child(6) {
+  animation-delay: 18s;
+}
+
+.carousel__item:nth-child(7) {
+  animation-delay: 21s;
+}
+
+.carousel__item:nth-child(8) {
+  animation-delay: 24s;
+}
+
+.carousel__item:last-child {
+  animation-delay: -6s;
+}
+
+.carousel__item-head {
+  border-radius: 50%;
+  background-color: #d7f7fc;
+  width: 90px;
+  height: 90px;
+  padding: 14px;
+  position: relative;
+  margin-right: -45px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+}
+
+.carousel__item-body {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px 16px 70px;
+  background: linear-gradient(140deg, #ffffff, #a0ffff);
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+/* Animation Keyframes */
+@keyframes carousel-animate {
+  0% {
+    transform: translateX(100%) scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+  }
+  3%, 11.11% {
+    transform: translateX(100%) scale(0.7);
+    opacity: 0.4;
+    visibility: visible;
+  }
+  14.11%, 22.22% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+  25.22%, 33.33% {
+    transform: translateX(-100%) scale(0.7);
+    opacity: 0.4;
+    visibility: visible;
+  }
+  36.33% {
+    transform: translateX(-100%) scale(0.5);
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(-100%) scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .wrapper {
+    height: 60%;
+    width: 60%;
+  }
+
+  .carousel__item-head {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+  }
+
+  .carousel__item-body {
+    padding: 16px 20px 16px 50px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    height: 70%;
+    width: 70%;
+  }
+
+  .carousel__item-head {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+  }
+
+  .carousel__item-body {
+    padding: 14px 18px 14px 40px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    height: 80%;
+    width: 80%;
+  }
+
+  .carousel__item-head {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+
+  .carousel__item-body {
+    padding: 12px 16px 12px 30px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+}
+
+  #dashboard_main {
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    color: white;
   }

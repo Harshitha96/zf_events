@@ -11,25 +11,41 @@
 <body>     
     <div class ="flex-container">
         
-        <a href="/"><img src="/static/images/ZF_icon" style="margin: 2px 0px;width:100px;"></a>
+        <a href="/ZF_events"><img src="/static/images/ZF_icon" style="margin: 2px 0px;"></a>
         
         <h1>Events at ZF</h1>
-        <form action="/new_event" method="GET">
+        <!--<form action="/new_event" method="GET">
             <input type = "submit" value="create new" id="create_new_event_button">
-        </form>
+        </form> -->
+        
+        <div class="dropdown">
+          <img src="/static/images/user_icon.png" alt="User Icon" class="user-icon">
+          <div class="dropdown-content">
+              <form action="/new_event" method="GET">
+                  <button type="submit" class="dropdown-button" id="create_new_event_button">Create New</button>
+              </form>
+              <form action="/logout" method="POST">
+                  <button type="submit" class="dropdown-button" id="create_new_event_button">Log Out</button>
+              </form>
+              
+              {%if isAdmin == "True"%}
+              <form action="/addUser" method="GET">
+                  <button type="submit" class="dropdown-button" id="create_new_event_button">Add a user</button>
+              </form>
+              {%endif%}
+          </div>
+      </div>
     </div>
 
     
     <div class="container">
-      <h2>Displaying event details</h2>
-   
-      <form action="/update_event" class="form_style">
+      <h2>{{Event_details}}</h2>
         <div class="row">
           <div class="col-25">
             <label for="event_name">Name of the event </label>
           </div>
           <div class="col-75">
-            <div>{{event_details.Name}}</div>
+            <div>{{event_details.Event_Name}}</div>
           </div>
         </div>
         <div class="row">
@@ -62,33 +78,103 @@
         </div>
         <div class="row">
           <div class="col-25">
-            <label for="event_link">Registration link</label>
+            <label for="event_link">Is registration required to participate</label>
           </div>
           <div class="col-75">
             <div>
-                {%if event_details.IsRegistration == 'True'%}
-                    {{event_details.RegistrationLink}}
+                {%if event_details.IsRegistration == "True"%}
+                    Registration is needed
+                {%elif event_details.IsRegistration == "False"%}
+                    Registration is not needed
                 {%else%}
-                    Registration is not needed          
+                    Details are not provided        
+                {%endif%}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="event_link">Is this a group event</label>
+          </div>
+          <div class="col-75">
+            <div>
+              {%if event_details.isGroupRegistration == "True"%}
+                  Event is for a group - 
+                  {%if event_details.min_team and event_details.max_team%}
+                    The minimum team size is {{event_details.min_team}}
+                    The maximum team size is {{event_details.max_team}}
+                  {%else%}
+                    The group team requirements are not specified. Check with the event team.
+                  {%endif%}
+              {%elif event_details.isGroupRegistration == "False"%}
+                  Registration is not needed
+              {%else%}
+                  Details are not provided 
+              {%endif%} 
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-25">
+            <label for="subject">Event Category</label>
+          </div>
+          <div class="col-75">
+            <div>
+                {%if event_details.Category%}
+                    {{event_details.Category}}
+                {%else%}
+                    Details not provided
                 {%endif%}
             </div>
           </div>
         </div>
         
         <div class="row">
-            <div class="col-25">
-              <label for="subject">Event Type</label>
-            </div>
-            <div class="col-75">
-              <div>
-                  {%if event_details.Event_Type%}
-                      {{event_details.Event_Type}}
-                  {%else%}
-                      Details not provided
-                  {%endif%}
-              </div>
+          <div class="col-25">
+            <label for="subject">Event status</label>
+          </div>
+          <div class="col-75">
+            <div>
+                {%if event_details.Event_Status%}
+                    {{event_details.Event_Status}}
+                {%else%}
+                    Details not provided
+                {%endif%}
             </div>
           </div>
+        </div>
+
+        <div class="row">
+          <div class="col-25">
+            <label for="subject">Total slots available</label>
+          </div>
+          <div class="col-75">
+            <div>
+                {%if event_details.Total_slots_avl%}
+                    {{event_details.Total_slots_avl | int}}
+                {%else%}
+                    0
+                {%endif%}
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-25">
+            <label for="subject">Registered slots</label>
+          </div>
+          <div class="col-75">
+            <div>
+                {%if event_details.Registered_slots %}
+                    {{event_details.Registered_slots | int}}
+                {%else%}
+                    0
+                {%endif%}
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-25">
             <label for="subject">Highlights</label>
@@ -108,13 +194,21 @@
             <a id= "create_new_event_button" href="/update_event/{{event_id}}">Update Event </a>
           </div>
           <div class="col-25">
+            {%if isAdmin == "True"%}
             <a id= "create_new_event_button" href="/delete_event/{{event_id}}">Delete Event </a>
+            {%else%}
+            <a id= "create_new_event_button" href="/ZF_events">All events</a>
+            {%endif%}
           </div>
           <div class="col-25">
-            <a id= "create_new_event_button" href="/">Go to Events </a>
+            <!-- <a id= "create_new_event_button" href="/">Go to Events </a> -->             
+            <a id= "create_new_event_button" href="/register/{{event_id}}">Register</a>
+          </div>
+          <div class="col-25">
+            <!-- <a id= "create_new_event_button" href="/">Go to Events </a> -->             
+            <a id= "create_new_event_button" href="https://forms.office.com/Pages/ResponsePage.aspx?id=Y7dw69e2hkSFVYgxcJp4TlYNQjquEXZAm1Gnsy8zeZdUN0tUNjA2RzFHU1lLM0E1Q1M1SElBRDNPNy4u&origin=Invitation&channel=1">Register by link</a>
           </div>
         </div>
-      </form>
     </div>
      
 </body>
