@@ -1,1 +1,2 @@
-web: gunicorn --bind :$PORT app:app
+web: gunicorn --bind :8000 app:<app>
+
